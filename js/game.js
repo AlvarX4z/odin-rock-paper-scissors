@@ -1,5 +1,6 @@
 let computerScore = 0;
 let humanScore = 0;
+let roundNumber = 1;
 
 function getHumanChoice() {
   return prompt("Choose between rock, paper and scissors:").toLocaleLowerCase();
@@ -27,16 +28,19 @@ function playRound(humanChoice, computerChoice) {
   }
 
   console.log(
-    `You chose '${humanChoice}' and the computer '${computerChoice}'.\nScore: Player ${humanScore} - ${computerScore} Computer`
+    `Round number ${roundNumber}\nYou chose '${humanChoice}' and the computer '${computerChoice}'.\nScore: Player ${humanScore} - ${computerScore} Computer`
   );
 }
 
 function calculateRoundWinner(computerChoice, winningChoice, losingChoice) {
   if (computerChoice === winningChoice) {
-    ++computerScore;
+    computerScore++;
   } else if (computerChoice === losingChoice) {
-    ++humanScore;
+    humanScore++;
   }
 }
 
-playRound(getHumanChoice(), getComputerChoice());
+while (roundNumber !== 6) {
+  playRound(getHumanChoice(), getComputerChoice());
+  roundNumber++;
+}
