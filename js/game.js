@@ -1,9 +1,11 @@
 const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
+const MAXIMUM_SCORE = 5;
+const MINIMUM_SCORE = 0;
 
-let computerScore = 0;
-let playerScore = 0;
+let computerScore = MINIMUM_SCORE;
+let playerScore = MINIMUM_SCORE;
 
 const resultContainer = document.createElement("div");
 const resultText = document.createElement("p");
@@ -29,7 +31,14 @@ function playRound(playerChoice, computerChoice) {
     calculateRoundWinner(computerChoice, ROCK, PAPER);
   }
 
-  resultText.textContent = `You chose '${playerChoice}' and the computer '${computerChoice}'.Score: Player ${playerScore} - ${computerScore} Computer`;
+  if (playerScore === MAXIMUM_SCORE || computerScore === MAXIMUM_SCORE) {
+    resultText.textContent =
+      playerScore > computerScore ? "Player wins!" : "Computer wins!";
+    computerScore = MINIMUM_SCORE;
+    playerScore = MINIMUM_SCORE;
+  } else {
+    resultText.textContent = `(${playerScore}) Player ${playerChoice} - ${computerChoice} Computer (${computerScore})`;
+  }
   resultContainer.appendChild(resultText);
   document.body.append(resultContainer);
 }
