@@ -5,6 +5,9 @@ const SCISSORS = "scissors";
 let computerScore = 0;
 let playerScore = 0;
 
+const resultContainer = document.createElement("div");
+const resultText = document.createElement("p");
+
 function getComputerChoice() {
   const randomNumber = Math.floor(Math.random() * 3) + 1;
   switch (randomNumber) {
@@ -26,9 +29,9 @@ function playRound(playerChoice, computerChoice) {
     calculateRoundWinner(computerChoice, ROCK, PAPER);
   }
 
-  console.log(
-    `You chose '${playerChoice}' and the computer '${computerChoice}'.\nScore: Player ${playerScore} - ${computerScore} Computer`
-  );
+  resultText.textContent = `You chose '${playerChoice}' and the computer '${computerChoice}'.Score: Player ${playerScore} - ${computerScore} Computer`;
+  resultContainer.appendChild(resultText);
+  document.body.append(resultContainer);
 }
 
 function calculateRoundWinner(computerChoice, winningChoice, losingChoice) {
