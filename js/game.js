@@ -1,33 +1,33 @@
-let computerScore = 0;
-let humanScore = 0;
+const ROCK = "rock";
+const PAPER = "paper";
+const SCISSORS = "scissors";
 
-function getHumanChoice() {
-  return prompt("Choose between rock, paper and scissors:").toLocaleLowerCase();
-}
+let computerScore = 0;
+let playerScore = 0;
 
 function getComputerChoice() {
   const randomNumber = Math.floor(Math.random() * 3) + 1;
   switch (randomNumber) {
     case 1:
-      return "rock";
+      return ROCK;
     case 2:
-      return "paper";
+      return PAPER;
     case 3:
-      return "scissors";
+      return SCISSORS;
   }
 }
 
-function playRound(humanChoice, computerChoice) {
-  if (humanChoice === "rock") {
-    calculateRoundWinner(computerChoice, "paper", "scissors");
-  } else if (humanChoice === "paper") {
-    calculateRoundWinner(computerChoice, "scissors", "rock");
+function playRound(playerChoice, computerChoice) {
+  if (playerChoice === ROCK) {
+    calculateRoundWinner(computerChoice, PAPER, SCISSORS);
+  } else if (playerChoice === PAPER) {
+    calculateRoundWinner(computerChoice, SCISSORS, ROCK);
   } else {
-    calculateRoundWinner(computerChoice, "rock", "paper");
+    calculateRoundWinner(computerChoice, ROCK, PAPER);
   }
 
   console.log(
-    `You chose '${humanChoice}' and the computer '${computerChoice}'.\nScore: Player ${humanScore} - ${computerScore} Computer`
+    `You chose '${playerChoice}' and the computer '${computerChoice}'.\nScore: Player ${playerScore} - ${computerScore} Computer`
   );
 }
 
@@ -35,8 +35,14 @@ function calculateRoundWinner(computerChoice, winningChoice, losingChoice) {
   if (computerChoice === winningChoice) {
     computerScore++;
   } else if (computerChoice === losingChoice) {
-    humanScore++;
+    playerScore++;
   }
 }
 
-playRound(getHumanChoice(), getComputerChoice());
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.addEventListener("click", function () {
+    const playerChoice = button.textContent.toLocaleLowerCase();
+    playRound(playerChoice, getComputerChoice());
+  });
+});
